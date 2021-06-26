@@ -1,0 +1,45 @@
+/**
+* CSS adjusted based on JSTKv11 changes done by Konrad Wojtas
+* Feel free to adjust below CSS according to Your needs
+*/
+body {
+	font-family: 'Montserrat', sans-serif;
+	position: relative;
+	min-height: 100vh;
+}
+
+.navbar {
+	position: sticky;
+	top: 0;
+}
+
+.content-wrap {
+	padding-bottom: 10rem;
+}
+
+.jumbotron p {
+	text-align: center;
+}
+
+header li {
+	display: block;
+}
+
+footer {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding: 1rem;
+	background-color: #EFEFEF;
+}
+
+footer p {
+	padding: 5px;
+}
+
+h1 {
+	color: #46b8da;
+	text-align: center;
+}
+

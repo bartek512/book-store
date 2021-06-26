@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <title>Books</title>
+</head>
+<body>
+<div layout:fragment="content" th:remove="tag">
+    <section>
+        <div class="jumbotron">
+            <div class="container">
+                <h1 th:text="#{books.main}"></h1>
+                <p th:text="#{books.description}"></p>
+            </div>
+        </div>
+    </section>
+    <section class="container">
+        <div class="row">
+            <th:block th:each="book : ${bookList}">
+                <div class="col-sm-6 col-md-3" style="padding-bottom: 15px">
+                    <div class="thumbnail">
+                        <div class="caption">
+                            <h3 th:text="${book.id}"></h3>
+                            <p th:text="${book.title}"></p>
+                            <p th:text="${book.authors}"></p>
+                            <p th:text="#{'books.status.'+${book.status}}"></p>
+                            <p>
+                                <a th:href="@{'/books/book?id='+${book.id}}"
+                                   class="btn btn-primary"> <span
+                                        class="glyphicon-info-sign glyphicon" th:text="#{books.details}"></span>
+                                </a>
+                            <form sec:authorize="hasRole('ADMIN')" action="#" th:action="@{/books/remove}"
+                                  th:object="${book}" method="delete"
+                                  class="form-horizontal">
+                                <a
+                                        th:href="@{/books/remove/{id}(id=${book.id})}"
+                                        class="btn btn-primary"> <span
+                                        class="glyphicon-info-sign glyphicon" th:text="#{book.remove}"></span>
+
+                                </a>
+
+                            </form>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+    </section>
+
+    <section>
+        <form action="#" th:action="@{/filter}" method="post" class="form-horizontal">
+            <fieldset>
+                <legend th:text="#{book.filter}"></legend>
+                <div class="form-group">
+                    <label class="control-label col-lg-2" for="name" th:field="*{title}"
+                           th:text="#{book.title}"></label>
+                    <div class="col-lg-10">
+                        <input id="name" type="text" th:name="title" class="form:input-large"/>
+                    </div>
+                </div>
+                <label class="control-label col-lg-2" for="status"
+                       th:text="#{book.status}"></label>
+                <div id="status" class="col-lg-10">
+                    <input type="radio" th:value="FREE" th:text="#{books.status.FREE}" th:name="status"/>
+                    <input type="radio" th:value="LOAN" th:text="#{books.status.LOAN}" th:name="status"/>
+                    <input type="radio" th:value="MISSING"
+                           th:text="#{books.status.MISSING}" th:name="status"/>
+                </div>
+                <label class="control-label col-lg-2" for="status" th:text="#{book.category}"></label>
+                <div id="categories" class="col-lg-10">
+                    <input type="checkbox" th:value="SCIENCE_FICTION"
+                           th:text="#{books.category.SciFi}" th:name="categories"/>
+                    <input type="checkbox" th:value="SATIRE"
+                           th:text="#{books.category.Satire}" th:name="categories"/>
+                    <input type="checkbox" th:value="DRAMA"
+                           th:text="#{books.category.Drama}" th:name="categories"/>
+                    <input type="checkbox" th:value="ACTION_AND_ADVENTURE"
+                           th:text="#{books.category.ACTION_AND_ADVENTURE}" th:name="categories"/>
+                    <input type="checkbox" th:value="ROMANCE"
+                           th:text="#{books.category.ROMANCE}" th:name="categories"/>
+                    <input type="checkbox" th:value="MYSTERY"
+                           th:text="#{books.category.MYSTERY}" th:name="categories"/>
+                    <input type="checkbox" th:value="HORROR"
+                           th:text="#{books.category.HORROR}" th:name="categories"/>
+                    <input type="checkbox" th:value="SELF_HELP"
+                           th:text="#{books.category.SELF_HELP}" th:name="categories"/>
+                </div>
+            </fieldset>
+            <div><input type="submit" id="btnAdd" class="btn btn-primary"
+                        value="Search"/></div>
+        </form>
+    </section>
+</div>
+</body>
+</html>
